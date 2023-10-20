@@ -108,16 +108,16 @@ include '../controladores/carritocom.php';
             <tr>
                 <td colspan="5">
                     <form action="pago.php" method="post">
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success">
                         <div class="form-group">
                         <label for="my-input">Direccion</label>
-                        <input id="direccion" name="direccion" class="form-control" type="direccion" placeholder="ingrese su dirreccion" required>
+                        <input id="direccion" name="direccion" class="form-control" type="direccion" placeholder="ingrese su direccion" required>
                     </div>
                     <small id="direccionhelp" class="form-text text-muted">
                             los Productos se enviaran a la siguiente direccion
+                            </small>
                         </div>
-                        <button class="btn btn-primary btn-lg btn-block" type="button" name="btnAccion" value="Proceder">Finalizar Compra</button>
-                        </small>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="btnAccion" value="Proceder">Finalizar  compra</button>
                     </form>
 
                 </td>
