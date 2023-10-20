@@ -16,13 +16,10 @@ include '../controladores/carritocom.php';
     <link rel="stylesheet" href="../assets/css/estilos.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/cuidadopersonal.css">
-    <link rel="stylesheet" href="../assets/css/card.css">
     <!--card-->
     <!--shop-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    
 </head>
 
 <body>
@@ -74,149 +71,64 @@ include '../controladores/carritocom.php';
     </header>
 
     <!--carrito--->
-    
-    <div class="cart-wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="main-heading">Carrito de Compras</div>
-                    <div class="table-cart">
+    <h3>Carrito de Compras</h3>
+<br>
 
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Productos</th>
-                                    <th>Cantidad</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="display-flex align-center">
-                                            <div class="img-product">
-                                                <img src="https://www.91-img.com/pictures/laptops/asus/asus-x552cl-sx019d-core-i3-3rd-gen-4-gb-500-gb-dos-1-gb-61721-large-1.jpg"
-                                                    alt="" class="mCS_img_loaded">
-                                            </div>
-                                            <div class="name-product">
-                                                Apple iPad Mini
-                                                <br>G2356
-                                            </div>
-                                            <div class="price">
-                                                $1,250.00
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="product-count">
-                                        <form action="#" class="count-inlineflex">
-                                            <div class="qtyminus">-</div>
-                                            <input type="text" name="quantity" value="1" class="qty">
-                                            <div class="qtyplus">+</div>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <div class="total">
-                                            $6,250.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="#" title="">
-                                            <img src="images/icons/delete.png" alt="" class="mCS_img_loaded">
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="display-flex align-center">
-                                            <div class="img-product">
-                                                <img src="https://www.91-img.com/pictures/laptops/asus/asus-x552cl-sx019d-core-i3-3rd-gen-4-gb-500-gb-dos-1-gb-61721-large-1.jpg"
-                                                    alt="" class="mCS_img_loaded">
-                                            </div>
-                                            <div class="name-product">
-                                                Apple iPad Mini
-                                                <br>G2356
-                                            </div>
-                                            <div class="price">
-                                                $1,250.00
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="product-count">
-                                        <form action="#" class="count-inlineflex">
-                                            <div class="qtyminus">-</div>
-                                            <input type="text" name="quantity" value="1" class="qty">
-                                            <div class="qtyplus">+</div>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <div class="total">
-                                            $6,250.00
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="#" title="">
-                                            <img src="images/icons/delete.png" alt="" class="mCS_img_loaded">
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="coupon-box">
-                            <form action="#" method="get" accept-charset="utf-8">
-                                <div class="coupon-input">
-                                    <input type="text" name="coupon code" placeholder="Coupon Code">
-                                    <button type="submit" class="round-black-btn">Apply Coupon</button>
-                                </div>
-                            </form>
+<?php if(!empty($_SESSION['carrito'])) {?>
+    <table class="table table-light" >
+        <tbody>
+            <tr>
+            <td width="40%">Productos</td>
+            <td width="30%">Cantidad</td>
+            <td width="30%">Total</td>
+            </tr>
+            <?php $total=0 ;?>
+            <?php foreach($_SESSION['carrito'] as $indie=>$producto){?>
+            <tr>
+            <td width="40%"><?php echo $producto['nombre']?></td>
+            <td width="15%"><?php echo $producto['cantidad']?></td>
+            <td width="20%"><?php echo $producto['precio']?></td>
+            <td width="20%"><?php echo number_format ($producto['precio']* $producto['cantidad'],2);?></td>
+            <td width="5%">
+            <form action="" method="post">
+            <input type="hidden" name="id"  id="id" value="<?php echo openssl_encrypt($producto['id'],COD,KEY);?>">
+            <button class="btn btn-dark" type="submit" name="btnAccion" value="Eliminar" resetBtn.disable = "disable">Eliminar</button>
+            </form>
+            </td>
+            </tr>
+            
+            <?php $total=$total+($producto['precio']*$producto['cantidad']);?>
+            <?php }?>
+
+            <tr>
+                <td colspan="3" align="right"><h3>Total a Pagar</h3></td>
+                <td align="right"><h3>$<?php echo number_format($total,2);?></h3></td>
+            </tr>
+
+            <tr>
+                <td colspan="5">
+                    <form action="pago.php" method="post">
+                        <div class="alert alert-success" role="alert">
+                        <div class="form-group">
+                        <label for="my-input">Direccion</label>
+                        <input id="direccion" name="direccion" class="form-control" type="direccion" placeholder="ingrese su dirreccion" required>
+                    </div>
+                    <small id="direccionhelp" class="form-text text-muted">
+                            los Productos se enviaran a la siguiente direccion
                         </div>
-                    </div>
-                    <!-- /.table-cart -->
-                </div>
-                <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
-                    <div class="cart-totals">
-                        <h3>Total en el Carrito</h3>
-                        <form action="#" method="get" accept-charset="utf-8">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>Subtotal</td>
-                                        <td class="subtotal">$2,589.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Envio</td>
-                                        <td class="free-shipping">Envio Gratis</td>
-                                    </tr>
-                                    <tr class="total-row">
-                                        <td>Total</td>
-                                        <td class="price-total">$1,591.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="btn-cart-totals">
-                                <a href="#" class="update round-black-btn" title="">Actualizar Carrito</a>
-                                <a href="#" class="checkout round-black-btn" title="">Proceed to Checkout</a>
-                            </div>
-                            <!-- /.btn-cart-totals -->
-                        </form>
-                        <!-- /form -->
-                    </div>
-                    <!-- /.cart-totals -->
-                </div>
-                <!-- /.col-lg-4 -->
-            </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="button" name="btnAccion" value="Proceder">Finalizar Compra</button>
+                        </small>
+                    </form>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <?php }else{ ?>
+        <div class="alert alert-success">
+            no hay nada en el Carrito
         </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="	sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
+        <?php }?>
 
     <!------ Footer ---------->
     <footer id="dk-footer" class="dk-footer">
