@@ -103,15 +103,17 @@ include '../controladores/carritocom.php';
     foreach($_SESSION['carrito'] as $indice=>$producto){
         $total=$total+($producto['precio']*$producto['cantidad']);
     }
-    $sentencia = $pdo->prepare ("INSERT INTO `tblvantas` (`ID`, `ClaveTransaccion`, `Datos`, `Fecha`, `Direccion`, `Total`, `Status`) VALUES (NULL, 'ClaveTransaccion', '', ':Direccion', 'camino de las torres 445', '700', 'pendiente');");
+    $sentencia = $pdo->prepare ("INSERT INTO `tblvantas` (`ID`, `ClaveTransaccion`, `Datos`, `Fecha`, `Direccion`, `Total`, `Status`)
+     VALUES (NULL, :ClaveTransaccion, '',NOW(), :Direccion, :Total, 'pendiente');");
     
     $sentencia ->bindParam(":ClaveTransaccion",$ID);
     $sentencia ->bindParam(":Direccion",$Direccion);
     $sentencia ->bindParam(":Total",$total);
+    $sentencia->execute();
     $idVenta=$pdo->lastInsertId();
 
 
-    $sentencia->execute();
+    
     echo "<h3>".$total."</h3>";
 }
 
