@@ -86,7 +86,7 @@ include '../controladores/carritocom.php';
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="navbar-link" href="../vista/carrito.php">Carrito(<?php
-                        echo (empty($_SESSION['CARRITO']))?0:($_SESSION['CARRITO']);
+                        echo (empty($_SESSION['carrito']))?0:count($_SESSION['carrito']);
                         ?>)</a>
 
                             </li>
@@ -96,11 +96,12 @@ include '../controladores/carritocom.php';
     </header>
 
         <br>
+        <?php if($mensaje="") {?>
         <div class="alert alert-success">
             <?php echo $mensaje; ?>
-            <a href="#" class="badge badge-success">Ver carrito</a>
+            <a href="carrito.php" class="badge badge-success">Ver carrito</a>
     </div>
-
+<?php echo $mensaje; }?>
 
     <!--shop-->
         <h3 class="h3"></h3>
@@ -144,7 +145,7 @@ include '../controladores/carritocom.php';
                                             <input type="hidden" name="precio" value="<?php echo openssl_encrypt($producto['Precio'],COD,KEY);?>">
                                             <input type="hidden" name="cantidad" value="<?php echo openssl_encrypt(1,COD,KEY);?>">
 
-                                            <a class="add-to-cart" href="" name="btnAccion" value="Agregar" type="submit">+ Agregar al carrito</a>
+                                            <button class="btn btn-primary"   name="btnAccion" value="Agregar" type="submit">+ Agregar al carrito</button>
                                         </form>
                     </div>
                 </div>
@@ -332,3 +333,4 @@ include '../controladores/carritocom.php';
 </body>
 
 </html>
+
