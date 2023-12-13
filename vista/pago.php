@@ -95,7 +95,14 @@ include '../controladores/carritocom.php';
         </nav>
     </header>
     
-    <?php
+<script src="https://www.paypal.com/sdk/js?client-id=AXjo-M9E0VVjkGZMaDIjSb92WN1cw5qmhWtGLqxy6Mr3IVhokKqCFGhwoUxFCCgra6mF6VrnvHtcpVTX&currency=MXN"></script>
+<!-- Bloque para el proceso de pago -->
+  <div class="jumbotron text-center">
+    <h1 class="display-4">¡Paso Final!</h1>
+    <hr class="my-4">
+    <p class="lead">Estás a punto de pagar con Paypal la cantidad:
+
+    <h4>$ <?php
     if($_POST){
         $total=0;
         $ID=session_id();
@@ -111,18 +118,91 @@ include '../controladores/carritocom.php';
     $sentencia ->bindParam(":Total",$total);
     $sentencia->execute();
     $idVenta=$pdo->lastInsertId();
-
-
-    
-    echo "<h3>".$total."</h3>";
+ echo "<h3>".$total."</h3>";
 }
 
-    ?>
+    ?></h4>
+    <div id="smart-button-container">
+           <div style="text-align: center;">
+        <div id="paypal-button-container">
+        <!--<button class="btn btn-lg btn-block" type="submit" name="btnAccion" value="Pagar" style="background-color: #FFD700; color: white;">Pagar</button> -->
+        </div>
+      </div>
+    </div>
+    </p>
+    <p>Los productos serán procesados cuando el pago se valide <br/>
+    <strong>(Para aclaraciones: delaros.anagloria@gmail.com)</strong>
+    </p>
+  </div>
+  <script src="https://www.paypal.com/sdk/js?client-id=AXjo-M9E0VVjkGZMaDIjSb92WN1cw5qmhWtGLqxy6Mr3IVhokKqCFGhwoUxFCCgra6mF6VrnvHtcpVTX&currency=MXN" data-sdk-integration- source="button-factory"></script>
+   
+   <script src="../assets/js/paypal.js">
 
 
+      
+  
+   /* function initPayPalButton() {
+    paypal. Buttons({
+    style: {
+    size: 'resnponsive',
+    shape: 'pill',
+    color: 'gold',
+    layout: 'vertical',
+    label: 'checkout',
+    },
 
+   payment: function(data, actions) {
+    return actions.payment.create({
+        payment: {
+    transactions: [{description: "Productos el autogol:$<?php echo number_format($total,2);?>",
+            amount: {total: '<?php echo $total;?>',
+            custom: "<?php echo $claveTransaccion;?>#<?php echo openssl_encrypt($idVenta,COD,KEY);?>",
+            currency:"MXN",}
+                
+            }
+        ] 
+        }
+        });
+    },
+    
+    createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: "Productos el autogol: $<?php echo number_format($total, 2); ?>",
+            amount: {
+              value: '<?php echo $total; ?>',
+              currency_code: 'MXN'
+            },
+          }]
+        });
+      },
+      onAuthorize: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          console.log(details); // Detalles de la transacción
+          // Redirigir a la página de agradecimiento o realizar otras acciones después del pago
+          window.location.href = 'equipos.php';
+        });
+      },
+      onError: function(err) {
+  console.error('Error en el pago:', err);
+  alert('Ocurrió un error durante el proceso de pago. Por favor, inténtalo de nuevo.');
+}
 
+    }).render('#paypal-button-container');
+    }
+    initPayPalButton();*/
+    </script>
+    <script>
+    // Lógica PHP para definir valores y variables necesarias
+    const total = <?php echo json_encode($total); ?>;
+    const claveTransaccion = "<?php echo $claveTransaccion; ?>";
+    const idVenta = "<?php echo openssl_encrypt($idVenta, COD, KEY); ?>";
 
+    // Llamada a la función initPayPalButton después de cargar paypal.js
+    initPayPalButton(total, claveTransaccion, idVenta);
+  </script>
+</body>
+</html>
 
 
  <!------ Footer ---------->
@@ -303,3 +383,4 @@ include '../controladores/carritocom.php';
 </body>
 
 </html>
+
