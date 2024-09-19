@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION["usuario"])){
     echo '<script>
         alert("Acceso de Negado");
-        window.location = "../vistas/login.php";
+        window.location = "../vista/login.php";
     </script>';
     session_destroy();
     die();
@@ -20,42 +20,23 @@ include './carritoA.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="./assets/css/estilos.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
-    <link rel="stylesheet" href="./assets/css/cuidadopersonal.css">
-    <link rel="stylesheet" href="./assets/css/contacto.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
-    <link href="./assets/css/carousel.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!------ Include the above in your HEAD tag ---------->
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="../assets/css/estilos.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <!--carrito-->
-
-
-    <title>Farmacia La Divina Providencia</title>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -64,7 +45,7 @@ include './carritoA.php';
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../index.php">Inicio<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="../index_admin.php">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -91,15 +72,15 @@ include './carritoA.php';
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
-                            Actualizar
+                            Actualizaciones
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/Proyecto Web/vista/sobre_nosotros.php">Agregar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Editar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Eliminar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Graficas</a>
+                            <a class="dropdown-item" href="/vista/productos.php">Alta</a>
+                            <a class="dropdown-item" href="/admin/edidar.php">Actualizar</a>
+                            <a class="dropdown-item" href="/admin/eliminar.php">Eliminar</a>
+                            <a class="dropdown-item" href="/Proyecto Web/vista/CuidadoPesonal.php">Graficas</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </li>
@@ -110,18 +91,15 @@ include './carritoA.php';
                 </form>
             </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                        <a class="btn btn-primary btn-sm me-2" href="./vista/carrito.php">Carrito(<?php
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                    <li class="nav-item active">
+                        <a class="btn btn-primary btn-sm me-2" href="../vista/carrito.php">Carrito(<?php
                         echo (empty($_SESSION['carrito']))?0:count($_SESSION['carrito']);
                         ?>)</a>
+                        <a href="login.php" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Ingresar</a>
+
                             </li>
-                            <li class="nav-item">
-              <a class="nav-link" href="../vistas/miperfil.php">Mi perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../vistas/cerrarsesion.php">cerrar sesion</a>
-            </li>
                 </ul>
             </nav>
         </nav>
@@ -141,12 +119,12 @@ include './carritoA.php';
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
               
 
-                $nombre = $_POST['nombre'];
-                $precio = $_POST['precio'];
-                $descripcion = $_POST['descripcion'];
-                $unidadesEnStock = $_POST['unidades_en_Stock'];
-                $puntoDeReorden = $_POST['puntoDeReorden'];
-                $unidadesComprometidas = $_POST['unidadesComprometidas'];
+                $nombre = $_POST['Nombre'];
+                $precio = $_POST['Precio'];
+                $descripcion = $_POST['Descripcion'];
+                $unidadesEnStock = $_POST['Unidades_en_Stock'];
+                $puntoDeReorden = $_POST['punto_de_Reorden'];
+                $unidadesComprometidas = $_POST['Unidades_Comprometidas'];
                 $costo = $_POST['costo'];
 
                 $query = $pdo->prepare("UPDATE tblproductos SET Nombre = :nombre, Precio = :precio, 
@@ -187,15 +165,15 @@ include './carritoA.php';
     <br>
     
     <label for="puntoDeReorden">Punto de Reorden:</label>
-    <input type="number" name="puntoDeReorden" value="<?php echo $product['PuntoDeReorden']; ?>" required>
+    <input type="number" name="puntoDeReorden" value="<?php echo $product['Punto_de_Reorden']; ?>" required>
     <br>
     
     <label for="unidadesComprometidas">Unidades Comprometidas:</label>
-    <input type="number" name="unidadesComprometidas" value="<?php echo $product['UnidadesComprometidas']; ?>" required>
+    <input type="number" name="unidadesComprometidas" value="<?php echo $product['Unidades_Comprometidas']; ?>" required>
     <br>
     
     <label for="costo">Costo:</label>
-    <input type="number" name="costo" step="0.01" value="<?php echo $product['Costo']; ?>" required>
+    <input type="number" name="costo" step="0.01" value="<?php echo $product['costo']; ?>" required>
     <br>
     
     <input type="submit" name="actualizar" value="Actualizar Producto">
