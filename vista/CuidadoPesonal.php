@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +38,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -82,9 +81,13 @@
             </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="navbar-link" href="../vista/carrito.php">Carrito(0)</a>
-                    </li>
+            <li class="nav-item active">
+                        <a class="btn btn-primary btn-sm me-2" href="../vista/carrito.php">Carrito(<?php
+                        echo (empty($_SESSION['carrito']))?0:count($_SESSION['carrito']);
+                        ?>)</a>
+                        <a href="login.php" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Ingresar</a>
+
+                            </li>
                 </ul>
             </nav>
         </nav>
@@ -1008,7 +1011,7 @@
                                         <a href="#">Servicios</a>
                                     </li>
                                     <li>
-                                        <a href="#">Contactanos</a>
+                                        <a href="../vista/contacto.php">Contactanos</a>
                                     </li>
 
                                 </ul>
@@ -1069,7 +1072,7 @@
                                     <a href="#">Privacy Policy</a>
                                 </li>
                                 <li>
-                                    <a href="./vista/contacto.html">Contact</a>
+                                    <a href="../vista/contacto.html">Contact</a>
                                 </li>
                             </ul>
                         </div>
