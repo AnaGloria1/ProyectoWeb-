@@ -36,8 +36,8 @@ class PDF extends FPDF
             $this->Cell(0, 10, 'Fecha: ' . $compra['fecha'] . ', Total: ' . $compra['total'], 0, 1);
 
             // Obtener los detalles de la compra (nombres de productos, cantidad, precio unitario y total por producto)
-            $detallesQuery = $this->pdo->prepare("SELECT p.nombre, d.cantidad, d.precio_unitario, d.cantidad * d.precio_unitario AS total_producto
-                                            FROM tblventas_detalle d
+            $detallesQuery = $this->pdo->prepare("SELECT p.nombre, d.cantidad, d.precioUnitario, d.cantidad * d.precioUnitario AS total_producto
+                                            FROM ventas_detalle d
                                             INNER JOIN tblproductos p ON d.id_productos = p.Id
                                             WHERE d.id_ventas = :id_venta");
             $detallesQuery->bindParam(':id_venta', $compra['id_ventas']); // Asegúrate de tener el campo correspondiente
@@ -57,7 +57,7 @@ class PDF extends FPDF
                 $detallesNombre = $detalle['nombre'];
                 $this->MultiCell(50, $lineHeight, $detallesNombre, 1, 'C'); // Ajusta MultiCell para evitar relleno negro
                 $this->Cell(30, $lineHeight, $detalle['cantidad'], 1, 0, 'C');
-                $this->Cell(40, $lineHeight, $detalle['precio_unitario'], 1, 0, 'C');
+                $this->Cell(40, $lineHeight, $detalle['precioUnitario'], 1, 0, 'C');
                 $this->Cell(40, $lineHeight, $detalle['total_producto'], 1, 1, 'C');
             }
             $this->Ln(10); // Espacio entre cada compra
@@ -82,8 +82,8 @@ if (isset($_SESSION['usuario'])) {
 
         // Realizar la consulta y obtener los datos...
         
-        $query = $pdo->prepare("SELECT v.fecha, v.total, v.id_ventas FROM tblvantas v INNER JOIN ventas_detalle d ON v.id_ventas = d.id_venta_detalles WHERE v.correo = :correo");
-        $query->bindParam(':correo', $correo);
+        $query = $pdo->prepare("SELECT v.fecha, v.total, v.id_ventas FROM tblvantas v INNER JOIN ventas_detalle d ON v.id_ventas = d.id_venta_detalles WHERE v.direccion = :direccion");
+        $query->bindParam(':direccion', $correo);
         $query->execute();
         $compras = $query->fetchAll(PDO::FETCH_ASSOC);
 
