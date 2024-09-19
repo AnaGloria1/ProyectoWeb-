@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once('../modelos/conexion.php');
+require_once('../controladores/conexion.php');
 $mensaje = "";
 function obtenerUnidadesEnStock($productoID, $pdo) {
     // Preparar una consulta SQL para obtener las Unidades en Stock del producto con ID $productoID.
