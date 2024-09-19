@@ -4,16 +4,16 @@ require_once('../controladores/conexion.php');
 $response = array();
 
 if (isset($_POST['agregar'])) {
-    $nombre = $_POST['nombre'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $unidadesEnStock = $_POST['unidades_en_stock'];
-    $puntoDeReorden = $_POST['puntoDeReorden'];
-    $unidadesComprometidas = $_POST['unidadesComprometidas'];
+    $nombre = $_POST['Nombre'];
+    $precio = $_POST['Precio'];
+    $descripcion = $_POST['Descripcion'];
+    $unidadesEnStock = $_POST['Unidades_en_Stock'];
+    $puntoDeReorden = $_POST['Punto_de_Reorden'];
+    $unidadesComprometidas = $_POST['Unidades_Comprometidas'];
     $costo = $_POST['costo'];
-    $imagen = $_FILES['imagen']['name'];
+    $imagen = $_FILES['Imagenes']['name'];
     $directorio_destino = __DIR__ . '/imagenes/';
-    $imagent= $_FILES['imagen']['tmp_name'];
+    $imagent= $_FILES['Imagenes']['tmp_name'];
     $imagend = $directorio_destino . $imagen;
    
     if (move_uploaded_file($imagent, $imagend)) {
