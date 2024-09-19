@@ -1,3 +1,4 @@
+Se usó un 79% del almacenamiento … Si te quedas sin almacenamiento, no podrás crear, editar ni subir archivos. Obtén 100 GB de almacenamiento por $34.00 MXN 0 durante 1 mes.
 <?php
 session_start();
 include '../controladores/conexion.php';
