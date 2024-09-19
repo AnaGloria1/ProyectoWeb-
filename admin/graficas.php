@@ -21,7 +21,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Consultar el ID del rol de administrador desde tblcargo
-    $queryRolAdmin = $pdo->prepare("SELECT id_cargo FROM cargo WHERE rol = 'Administrador'");
+    $queryRolAdmin = $pdo->prepare("SELECT id_cargo1 FROM cargo WHERE rol = 'Administrador'");
     $queryRolAdmin->execute();
     $idRolAdmin = $queryRolAdmin->fetchColumn();
 
@@ -99,7 +99,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
