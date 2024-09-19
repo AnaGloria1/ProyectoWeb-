@@ -6,7 +6,7 @@ include '../admin/carritoA.php';
 
 // Verifica si el usuario ha iniciado sesión
 if (!isset($_SESSION['usuario'])) {
-    header("Location: ../vistas/login.php");
+    header("Location: ../vista/login.php");
     exit;
 }
 
@@ -15,7 +15,7 @@ $correo = $_SESSION['usuario'];
 
 try {
     // Realiza una consulta para obtener los datos del usuario a partir del correo electrónico
-    $query = $pdo->prepare("SELECT * FROM usuario WHERE correo = :correo");
+    $query = $pdo->prepare("SELECT * FROM usuario WHERE email = :correo");
     $query->bindParam(':correo', $correo);
     $query->execute();
 
@@ -30,7 +30,7 @@ try {
             $nuevo_codigo_postal = $_POST['codigo_postal'];
 
             // Actualiza el código postal en la base de datos
-            $update_query = $pdo->prepare("UPDATE usuarios SET codigo_postal = :nuevo_codigo_postal WHERE correo = :correo");
+            $update_query = $pdo->prepare("UPDATE usuarios SET codigo_postal = :nuevo_codigo_postal WHERE email = :correo");
             $update_query->bindParam(':nuevo_codigo_postal', $nuevo_codigo_postal);
             $update_query->bindParam(':correo', $correo);
             $update_query->execute();
@@ -91,7 +91,7 @@ try {
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -132,10 +132,10 @@ try {
                             Actualizar
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/Proyecto Web/vista/sobre_nosotros.php">Agregar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Editar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Eliminar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Graficas</a>
+                            <a class="dropdown-item" href="/vista/productos.php">Agregar</a>
+                            <a class="dropdown-item" href="/admin/Editar.php">Editar</a>
+                            <a class="dropdown-item" href="/admin/eliminar.php">Eliminar</a>
+                            <a class="dropdown-item" href="/admin/graficas.php">Graficas</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </li>
@@ -153,7 +153,7 @@ try {
                         ?>)</a>
                             </li>
                             <li class="nav-item">
-              <a class="nav-link" href="../vistas/miperfil.php">Mi perfil</a>
+              <a class="nav-link" href="../admin/miperfil.php">Mi perfil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../vistas/cerrarsesion.php">cerrar sesion</a>
@@ -175,11 +175,11 @@ try {
         </div>
         <div class="info">
             <label>Correo Electrónico:</label>
-            <span><?php echo $usuario['correo']; ?></span>
+            <span><?php echo $usuario['email']; ?></span>
         </div>
         <div class="info">
             <label>Usuario:</label>
-            <span><?php echo $usuario['usuario']; ?></span>
+            <span><?php echo $usuario['username']; ?></span>
         </div>
         <form method="POST" action="">
                 <div class="info">
@@ -192,7 +192,7 @@ try {
                     <input type="submit" name="submit" value="Actualizar Código Postal">
                 </div>
                 <div class="info">
-         <a href="generar_pdf.php" target="_blank" class="btn btn-primary">Descargar Historial de Compras en PDF</a>
+         <a href="/vista/pdf.php" target="_blank" class="btn btn-primary">Descargar Historial de Compras en PDF</a>
 </div>
         </form>
 </div>  
