@@ -111,12 +111,31 @@ include './controladores/conexion.php';
                         alt="First slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="./imagenes/ntro-medico-diseno-plano_23-2150122482 (1).jpg"
+                    <img class="d-block w-50" src="./imagenes/ntro-medico-diseno-plano_23-2150122482 (1).jpg"
                         alt="Second slide">
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100" src="./imagenes/diseno-plantillas-sanitarias_23-2150742457 (1).jpg"
                         alt="Third slide">
+                        </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50" src="./imagenes/U1.jpg"
+                        alt="Fourth slide">
+                        </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50" src="./imagenes/U2.jpg"
+                        alt="Fifth slide">
+                        </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50" src="./imagenes/U3.jpg"
+                        alt="Sixth slide">
+                        </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50" src="./imagenes/U4.jpg"
+                        alt="Seventh slide">
+                        <div class="carousel-item">
+                    <img class="d-block w-50" src="./imagenes/U5.jpg"
+                        alt="Eighth slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
