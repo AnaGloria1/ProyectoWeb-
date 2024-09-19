@@ -1,9 +1,10 @@
+Se usó un 79% del almacenamiento … Si te quedas sin almacenamiento, no podrás crear, editar ni subir archivos. Obtén 100 GB de almacenamiento por $34.00 MXN 0 durante 1 mes.
 <?php
 session_start();
 if (!isset($_SESSION["usuario"])){
     echo '<script>
         alert("Por favor debes iniciar sesión");
-        window.location = "../vistas/login.php";
+        window.location = "../vista/login.php";
     </script>';
     session_destroy();
     die();
@@ -35,7 +36,7 @@ include '../usuario/carritoU.php';
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpegg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -73,10 +74,10 @@ include '../usuario/carritoU.php';
                 </ul>
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-              <a class="nav-link" href="../vistas/myperfil.php">Mi perfil</a>
+              <a class="nav-link" href="../vista/myperfil.php">Mi perfil</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../vistas/cerrar_sesion.php">Cerrar sesión</a>
+              <a class="nav-link" href="../vista/cerrar_sesion.php">Cerrar sesión</a>
             </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -129,7 +130,7 @@ include '../usuario/carritoU.php';
 
             <tr>
                 <td colspan="5">
-                    <form action="pago.php" method="post">
+                    <form action="/usuario/pago.php" method="post">
                         <div class="alert alert-success">
                         <div class="form-group">
                         <label for="my-input">Direccion</label>
