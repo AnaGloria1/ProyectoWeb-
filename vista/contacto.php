@@ -16,7 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-        <img height="120" src="/imagenes/descargar-removebg-preview.png" alt=""></a>
+        <img height="120" src="../imagenes/logo.jpeg" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,32 +68,32 @@
 		<div class="col-md-3">
 			<div class="contact-info">
 				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
-				<h2>Contact Us</h2>
-				<h4>We would love to hear from you !</h4>
+				<h2>Contactanos</h2>
+				<h4>¡Nos encantaría saber de ti!</h4>
 			</div>
 		</div>
 		<div class="col-md-9">
 			<div class="contact-form">
 				<div class="form-group">
-				  <label class="control-label col-sm-2" for="fname">First Name:</label>
+				  <label class="control-label col-sm-2" for="fname">Nombre:</label>
 				  <div class="col-sm-10">          
-					<input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
+					<input type="text" class="form-control" id="fname" placeholder="Ingresar Nombre" name="fname">
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="control-label col-sm-2" for="lname">Last Name:</label>
+				  <label class="control-label col-sm-2" for="lname">Apellido:</label>
 				  <div class="col-sm-10">          
-					<input type="text" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
+					<input type="text" class="form-control" id="lname" placeholder="Ingresar apellido" name="lname">
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="control-label col-sm-2" for="email">Email:</label>
 				  <div class="col-sm-10">
-					<input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+					<input type="email" class="form-control" id="email" placeholder="Ingresar email" name="email">
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="control-label col-sm-2" for="comment">Comment:</label>
+				  <label class="control-label col-sm-2" for="comentarios">Comentarios:</label>
 				  <div class="col-sm-10">
 					<textarea class="form-control" rows="5" id="comment"></textarea>
 				  </div>
