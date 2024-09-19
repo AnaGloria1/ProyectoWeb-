@@ -1,5 +1,5 @@
 <?php
-include '../modelos/conexion.php';
+include '../controladores/conexion.php';
 
 //  la conexión a la base de datos y cualquier verificación de autenticación necesario
 ?>
@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
         if ($stmt->execute()) {
             // Producto eliminado con éxito
-            header("Location: Eliminar.php"); 
+            header("Location: eliminar.php"); 
             exit();
         } else {
             // Error al eliminar el producto
