@@ -2,8 +2,8 @@
 session_start();
 if (!isset($_SESSION["usuario"])){
     echo '<script>
-        alert("Acceso de Negado");
-        window.location = "../vistas/login.php";
+        alert("Por favor debes iniciar sesión");
+        window.location = "../vista/login.php";
     </script>';
     session_destroy();
     die();
@@ -19,13 +19,13 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Consultar el ID del rol de administrador desde tblcargo
-    $queryRolAdmin = $pdo->prepare("SELECT id_cargo FROM cargo WHERE rol = 'Administrador'");
+    $queryRolAdmin = $pdo->prepare("SELECT id_cargo1 FROM cargo WHERE rol = 'Administrador'");
     $queryRolAdmin->execute();
     $idRolAdmin = $queryRolAdmin->fetchColumn();
 
     // Consultar el ID del rol del usuario desde tblusuarios
     $queryRolUsuario = $pdo->prepare("SELECT id_cargo FROM usuario WHERE id_cargo = :usuario");
-    $queryRolUsuario->bindParam(':usuario', $usuario);
+    $queryRolUsuario->bindParam(':usuario',  $idRolAdmin);
     $queryRolUsuario->execute();
     $idRolUsuario = $queryRolUsuario->fetchColumn();
 
@@ -39,13 +39,10 @@ try {
     }
 
 ?>
-<?php
-include './carritoA.php';
-// una consulta SQL para obtener la lista de productos desde la base de datos
-$sql = "SELECT * FROM tblproductos";
-$result = $pdo->query($sql);
-$products = $result->fetchAll(PDO::FETCH_ASSOC);
-?>
+ <?php 
+include '../admin/carritoA.php'; 
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,8 +52,8 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="./assets/css/estilos.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/estilos.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="./assets/css/cuidadopersonal.css">
     <link rel="stylesheet" href="./assets/css/contacto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css">
@@ -86,7 +83,7 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -95,7 +92,7 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../index.php">Inicio<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="../index.php">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -122,15 +119,15 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
-                            Actualizar
+                            Actualizaciones
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/Proyecto Web/vista/sobre_nosotros.php">Agregar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Editar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Eliminar</a>
-                            <a class="dropdown-item" href="/Proyecto Web/vista/location.php">Graficas</a>
+                            <a class="dropdown-item" href="/Proyecto%20Web/vista/productos.php">Alta</a>
+                            <a class="dropdown-item" href="/Proyecto Web/admin/Editar.php">Actualizar</a>
+                            <a class="dropdown-item" href="/Proyecto%20Web/admin/eliminar.php">Eliminar</a>
+                            <a class="dropdown-item" href="/Proyecto Web/admin/graficas.php">Graficas</a>
                             <div class="dropdown-divider"></div>
                         </div>
                     </li>
@@ -141,45 +138,91 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
                 </form>
             </div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                        <a class="btn btn-primary btn-sm me-2" href="./vista/carrito.php">Carrito(<?php
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                    <li class="nav-item active">
+                        <a class="btn btn-primary btn-sm me-2" href="../vista/carrito.php">Carrito(<?php
                         echo (empty($_SESSION['carrito']))?0:count($_SESSION['carrito']);
                         ?>)</a>
+                        <a href="login.php" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Ingresar</a>
+
                             </li>
-                            <li class="nav-item">
-              <a class="nav-link" href="../vistas/miperfil.php">Mi perfil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../vistas/cerrarsesion.php">cerrar sesion</a>
-            </li>
                 </ul>
             </nav>
         </nav>
     </header>
+    <!--Carousel-->
+    <section id="home" class="p-0">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100"
+                        src="./imagenes/banner-venta-establecimiento-atencion-medica-degradado_23-2149670312.jpg"
+                        alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="./imagenes/ntro-medico-diseno-plano_23-2150122482 (1).jpg"
+                        alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="./imagenes/diseno-plantillas-sanitarias_23-2150742457 (1).jpg"
+                        alt="Third slide">
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+    <!--banner -->
 
-    <h1>Lista de Productos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($products as $product) { ?>
-                <tr>
-                    <td><?php echo $product['ID']; ?></td>
-                    <td><?php echo $product['Nombre']; ?></td>
-                    <td>
-                        <a href="delete.php?id=<?php echo $product['ID']; ?>" class="btn-eliminar">Eliminar</a>
-                    </td>
-                </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+    <section class="our-webcoderskull padding-lg">
+        <div class="container">
+            <ul class="row">
+                <li class="col-12 col-md-6 col-lg-3">
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="/Proyecto Web/imagenes/747305.png" class="img-responsive" alt=""></figure>
+                        <h3><a href="#">Compra segura </a></h3>
+                        <p>Haz tus compras con absoluta confianza</p>
+                    </div>
+                </li>
+                <li class="col-12 col-md-6 col-lg-3">
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="/Proyecto Web/imagenes/245a4fdd2abb88b2fce9015d4aa1bc11-removebg-preview.png"
+                                class="img-responsive" alt=""></figure>
+                        <h3><a href="#">Envíos seguros</a></h3>
+                        <p>Con un monto minimo adicional</p>
+                    </div>
+                </li>
+                <li class="col-12 col-md-6 col-lg-3">
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="/Proyecto Web/imagenes/2649359.png" class="img-responsive" alt=""></figure>
+                        <h3><a href="#"> Monitorea tu pedido </a></h3>
+                        <p>Gratis directamente en nuestra tienda</p>
+                    </div>
+                </li>
+                <li class="col-12 col-md-6 col-lg-3">
+                    <div class="cnt-block equal-hight" style="height: 349px;">
+                        <figure><img src="/Proyecto Web/imagenes/descargar.png" class="img-responsive" alt=""></figure>
+                        <h3><a href="#">Calidad </a></h3>
+                        <p>Productos de buena calidad</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 
+    <!------ Footer ---------->
     <footer id="dk-footer" class="dk-footer">
         <div class="container">
             <div class="row">
@@ -306,7 +349,7 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- End form -->
                             </div>
                             <!-- End footer widget -->
-                   c     </div>
+                        </div>
                         <!-- End Col -->
                     </div>
                     <!-- End Row -->
@@ -359,6 +402,7 @@ $products = $result->fetchAll(PDO::FETCH_ASSOC);
         <!-- End Back to top -->
     </footer>
 </body>
+
 </html>
 <?php
 } catch (PDOException $e) {
