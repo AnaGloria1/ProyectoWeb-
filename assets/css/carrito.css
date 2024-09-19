@@ -32,7 +32,7 @@ ul.dropdown-cart li .item-left span.item-info span{
     display:block;
 }
 ul.dropdown-cart li .item-right{
-    float:right;
+    float:left;
 }
 ul.dropdown-cart li .item-right button{
     margin-top:14px;
