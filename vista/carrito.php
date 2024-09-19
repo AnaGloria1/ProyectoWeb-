@@ -1,8 +1,9 @@
 <?php
 include '../controladores/conexion.php';
 include '../controladores/carritocom.php';
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,6 @@ include '../controladores/carritocom.php';
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/css/estilos.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
-    <link rel="stylesheet" href="../assets/css/cuidadopersonal.css">
     <!--card-->
     <!--shop-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -26,7 +26,7 @@ include '../controladores/carritocom.php';
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img height="120" src="/Proyecto Web/imagenes/descargar-removebg-preview.png" alt=""></a>
+                <img height="120" src="/Proyecto Web/imagenes/logo.jpeg" alt=""></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -80,22 +80,28 @@ include '../controladores/carritocom.php';
             <tr>
             <td width="40%">Productos</td>
             <td width="30%">Cantidad</td>
-            <td width="30%">Total</td>
+            <td width="30%">Precio</td>
+            <td width="30%">SubTotal</td>
             </tr>
             <?php $total=0 ;?>
             <?php foreach($_SESSION['carrito'] as $indie=>$producto){?>
-            <tr>
-            <td width="40%"><?php echo $producto['nombre']?></td>
-            <td width="15%"><?php echo $producto['cantidad']?></td>
-            <td width="20%"><?php echo $producto['precio']?></td>
-            <td width="20%"><?php echo number_format ($producto['precio']* $producto['cantidad'],2);?></td>
-            <td width="5%">
-            <form action="" method="post">
-            <input type="hidden" name="id"  id="id" value="<?php echo openssl_encrypt($producto['id'],COD,KEY);?>">
+                <tr>
+    <td width="40%"><?php echo $producto['nombre']?></td>
+    <td width="15%">
+    <form action="" method="post">
+    <input type="number" id="cantidadInput" style="width: 45px; padding: 1px" min="1" max="10" step="1" value="<?php echo $producto['cantidad'] ?>" onchange="actualizarCantidad(this.value, <?php echo $producto['id']; ?>)">
+</form>
+
+    </td>
+    <td width="20%"><?php echo $producto['precio']?></td>
+    <td width="20%"><?php echo number_format ($producto['precio']* $producto['cantidad'],2);?></td>
+    <td width="5%">
+        <form action="" method="post">
+            <input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['id'],COD,KEY);?>">
             <button class="btn btn-dark" type="submit" name="btnAccion" value="Eliminar" resetBtn.disable = "disable">Eliminar</button>
-            </form>
-            </td>
-            </tr>
+        </form>
+    </td>
+</tr>
             
             <?php $total=$total+($producto['precio']*$producto['cantidad']);?>
             <?php }?>
@@ -306,5 +312,37 @@ include '../controladores/carritocom.php';
         <!-- End Back to top -->
     </footer>
 </body>
+<script>
+    function actualizarCantidad(cantidad, id) {
+        let url = 'clases/actualizar_carrito.php';
+        let formData = new FormData();
+        formData.append('action', 'actualizarCantidad');
+        formData.append('id', id);
+        formData.append('cantidad', cantidad);
 
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            mode: 'cors',
+        }).then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                let divSubtotal = document.getElementById('subtotal_' + id)
+                divSubtotal.innerHTML = data.sub
+
+                let total = 0.00
+                let list = document.getElementsByName('subtotal[]')
+
+                for (var i = 0; i < list.length; ++i) {
+                    total += parseFloat(list[i].innerHTML.replace(/[$,]/g, ''))
+                }
+
+                total = new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2
+                }).format(total)
+                document.getElementById("total").innerHTML = '$' + total
+            }
+        });
+    }
+</script>
 </html>
